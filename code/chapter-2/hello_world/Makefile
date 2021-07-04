@@ -4,15 +4,15 @@ EXECABLE = monitor-exec
 
 BPFCODE = bpf_program
 
-BPFTOOLS = /kernel-src/samples/bpf
+BPFTOOLS = /linux/samples/bpf
 BPFLOADER = $(BPFTOOLS)/bpf_load.c
 
-CCINCLUDE += -I/kernel-src/tools/testing/selftests/bpf
+CCINCLUDE += -I/linux/tools/testing/selftests/bpf
 
-LOADINCLUDE += -I/kernel-src/samples/bpf
-LOADINCLUDE += -I/kernel-src/tools/lib
-LOADINCLUDE += -I/kernel-src/tools/perf
-LOADINCLUDE += -I/kernel-src/tools/include
+LOADINCLUDE += -I/linux/samples/bpf
+LOADINCLUDE += -I/linux/tools/lib
+LOADINCLUDE += -I/linux/tools/perf
+LOADINCLUDE += -I/linux/tools/include
 LIBRARY_PATH = -L/usr/local/lib64
 BPFSO = -lbpf
 
@@ -30,7 +30,7 @@ BPFSO = -lbpf
 # See more context at:
 # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=06f84d1989b7e58d56fa2e448664585749d41221
 # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=fce9501aec6bdda45ef3a5e365a5e0de7de7fe2d
-CFLAGS += $(shell grep -q "define HAVE_ATTR_TEST 1" /kernel-src/tools/perf/perf-sys.h \
+CFLAGS += $(shell grep -q "define HAVE_ATTR_TEST 1" /linux/tools/perf/perf-sys.h \
                   && echo "-DHAVE_ATTR_TEST=0")
 
 .PHONY: clean $(CLANG) bpfload build
