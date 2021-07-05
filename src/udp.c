@@ -1,33 +1,35 @@
 #include <linux/bpf.h>
-#include <linux/if_ether.h>
 #include <linux/in.h>
+#include <linux/if_ether.h>
 #include <linux/ip.h>
-
 
 #define SEC(NAME) __attribute__((section(NAME), used))
 
-SEC("mysection")
-int myprogram(struct xdp_md *ctx) {
+SEC("drop-udp")
+int dropper(struct xdp_md *ctx) {
   int ipsize = 0;
+
   void *data = (void *)(long)ctx->data;
   void *data_end = (void *)(long)ctx->data_end;
+
   struct ethhdr *eth = data;
-  struct iphdr *ip;
 
   ipsize = sizeof(*eth);
-  ip = data + ipsize;
-  ipsize += sizeof(struct iphdr);
-  
-  char msg[] = "the interface %d";
-  bpf_trace_printk(msg, ctx->ingress_ifindex);
 
+  struct iphdr *ip = data + ipsize;
+  ipsize += sizeof(struct iphdr);
   if (data + ipsize > data_end) {
-    return XDP_DROP;
+    return XDP_PASS;
   }
 
-  if (ip->protocol == IPPROTO_TCP) {
+  char msg[] = "";
+  bpf_trace_printk(msg, sizeof(msg));
+  
+  if (ip->protocol == IPPROTO_UDP) {
     return XDP_DROP;
   }
 
   return XDP_PASS;
 }
+
+char _license[] SEC("license") = "GPL";

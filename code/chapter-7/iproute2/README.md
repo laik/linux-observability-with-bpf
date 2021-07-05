@@ -22,7 +22,9 @@ Now that you have it, you can load the program to an interface. We will use `eth
 blocks TCP packets and we are connected to the Vagrant machine trough SSH :)
 
 ```bash
-sudo ip link set dev eth1 xdp obj program.o sec mysection
+sudo ip link set dev eth0 xdp obj program.o sec mysection
+
+    ip link set dev eth0 xdp obj program.o sec .text
 ```
 
 
@@ -32,5 +34,5 @@ Please note that you can see that the program was loaded by doing an `ip a` and 
 To unload the program you have to do:
 
 ```bash
-sudo ip link set dev eth1 xdp off
+sudo ip link set dev eth0 xdp off
 ```

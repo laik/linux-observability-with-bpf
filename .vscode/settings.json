@@ -5,7 +5,8 @@
         "if_ether.h": "c",
         "in.h": "c",
         "stdio.h": "c",
-        "bpf_load.h": "c"
+        "bpf_load.h": "c",
+        "ip.h": "c"
     },
-    "C_Cpp.errorSquiggles": "Enabled"
+    "C_Cpp.errorSquiggles": "Disabled"
 }
