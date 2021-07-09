@@ -8,7 +8,7 @@
                 "/linux/samples/bpf",
                 "/linux/tools/lib",
                 "/linux/tools/perf",
-                "/linux/tools/include",
+                "/linux/tools/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
